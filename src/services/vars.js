@@ -5,7 +5,7 @@ module.exports = {
   logs: process.env.NODE_ENV === "production" ? "combined" : "dev",
   port: process.env.PORT || 4000,
   mongo: {
-    uri: process.env.MONGO_URI || "mongodb://localhost:27017",
+    uri: process.env.MONGO_URI || "mongodb://127.0.0.1:27017",
   },
   jwt: {
     secret: process.env.JWT_SECRET || "0123456789",
