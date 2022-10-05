@@ -9,7 +9,6 @@ const { jwt: { expiry, secret } } = require('../services/vars')
 // register user
 
 router.post("/", async (req, res, next) => {
-    console.log("reached here");
     let { userEmail, facebookId, googleId, userName } = req.body
     try {
         const alreadyExsist = await User.findOne({ user_email: userEmail }).count() > 0
