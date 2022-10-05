@@ -12,7 +12,10 @@ const {
 require("dotenv").config();
 
 mongoose
-  .connect(uri)
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((res) => {
     console.log(`Mongoose connection established ...`);
   })
