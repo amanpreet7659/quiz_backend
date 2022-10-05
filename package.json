@@ -1,18 +1,22 @@
 {
   "name": "quiz_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for quiz",
   "main": "index.js",
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.16.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js",
-    "build": "mkdir build && babel ./ -s -d dist"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

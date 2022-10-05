@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
-const MainRoute = require('./app')
-const { port } = require('./services/vars')
+const MainRoute = require('./src/app')
+const { port } = require('./src/services/vars')
 const app = express()
 
 app.use(MainRoute)
