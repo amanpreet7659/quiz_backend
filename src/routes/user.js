@@ -26,6 +26,7 @@ router.post("/", async (req, res, next) => {
         google_id,
         picture,
       } = await User.findOne({ user_email: userEmail });
+
       await User.updateOne(
         { _id },
         {
@@ -34,6 +35,7 @@ router.post("/", async (req, res, next) => {
             facebook_id: facebookId,
             google_id: googleId,
             login_count: login_count + 1,
+            user_name: userName,
           },
         }
       );
@@ -42,9 +44,9 @@ router.post("/", async (req, res, next) => {
           id: _id,
           userEmail: user_email,
           userName: user_name,
-          picture,
           facebook_id,
           google_id,
+          picture,
         },
         secret
       );
@@ -67,6 +69,9 @@ router.post("/", async (req, res, next) => {
         user_email: userEmail,
         user_name: userName,
         login_count: 1,
+        facebook_id: facebookId,
+        google_id: googleId,
+        picture,
       });
       let { _id, facebook_id, google_id, user_email, user_name } =
         await User.findOne({ user_email: userEmail });
@@ -87,7 +92,7 @@ router.post("/", async (req, res, next) => {
         res,
         {
           token,
-          loginCount: 1
+          loginCount: 1,
         },
         200
       );
