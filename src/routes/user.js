@@ -46,7 +46,6 @@ router.post("/", async (req, res, next) => {
           userName: user_name,
           facebook_id,
           google_id,
-          picture,
         },
         secret
       );
@@ -58,6 +57,7 @@ router.post("/", async (req, res, next) => {
           loginCount: login_count + 1,
           userEmail: user_email,
           userName: user_name,
+          picture,
         },
         200
       );
@@ -73,6 +73,7 @@ router.post("/", async (req, res, next) => {
         google_id: googleId,
         picture,
       });
+
       let { _id, facebook_id, google_id, user_email, user_name } =
         await User.findOne({ user_email: userEmail });
 
@@ -81,7 +82,6 @@ router.post("/", async (req, res, next) => {
           id: _id,
           userEmail: user_email,
           userName: user_name,
-          picture,
           facebook_id,
           google_id,
         },
@@ -95,6 +95,7 @@ router.post("/", async (req, res, next) => {
           loginCount: 1,
           userEmail: user_email,
           userName: user_name,
+          picture,
         },
         200
       );
