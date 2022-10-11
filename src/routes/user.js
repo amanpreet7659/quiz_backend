@@ -56,8 +56,8 @@ router.post("/", async (req, res, next) => {
         {
           token,
           loginCount: login_count + 1,
-          // userEmail: user_email,
-          // userName: user_name
+          userEmail: user_email,
+          userName: user_name,
         },
         200
       );
@@ -93,6 +93,8 @@ router.post("/", async (req, res, next) => {
         {
           token,
           loginCount: 1,
+          userEmail: user_email,
+          userName: user_name,
         },
         200
       );
