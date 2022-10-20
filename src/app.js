@@ -13,7 +13,7 @@ require("dotenv").config();
 
 mongoose
   .connect(
-    "mongodb+srv://node_js_demo:GP1fvZncCa6CvzPJ@cluster0.xps2l.mongodb.net/quiz_app?retryWrites=true&w=majority",
+    "mongodb+srv://node_js_demo:GP1fvZncCa6CvzPJ@cluster0.xps2l.mongodb.net/test_quiz_app?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

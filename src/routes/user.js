@@ -11,21 +11,19 @@ const {
 // register user
 
 router.post("/", async (req, res, next) => {
-  let { userEmail, facebookId, googleId, userName, picture } = req.body;
+  const { userEmail, facebookId, googleId, userName, picture } = req.body;
   try {
-    const alreadyExsist =
-      (await User.findOne({ user_email: userEmail }).count()) > 0;
+    const cloudUser = await User.findOne({ user_email: userEmail });
 
-    if (alreadyExsist) {
-      let {
+    if (cloudUser) {
+      const {
         _id,
         login_count,
         user_email,
         user_name,
         facebook_id,
         google_id,
-        picture,
-      } = await User.findOne({ user_email: userEmail });
+      } = cloudUser;
 
       await User.updateOne(
         { _id },
@@ -36,6 +34,7 @@ router.post("/", async (req, res, next) => {
             google_id: googleId,
             login_count: login_count + 1,
             user_name: userName,
+            picture:picture.data.url,
           },
         }
       );
@@ -46,6 +45,7 @@ router.post("/", async (req, res, next) => {
           userName: user_name,
           facebook_id,
           google_id,
+          picture:picture.data.url,
         },
         secret
       );
@@ -55,27 +55,25 @@ router.post("/", async (req, res, next) => {
         {
           token,
           loginCount: login_count + 1,
-          userEmail: user_email,
           userName: user_name,
-          picture,
+          picture:picture.data.url,
         },
         200
       );
     }
 
-    if (!alreadyExsist) {
-      await User.create({
+    if (!cloudUser) {
+      const createdUser = await User.create({
         _id: mongoose.Types.ObjectId(),
         user_email: userEmail,
         user_name: userName,
         login_count: 1,
         facebook_id: facebookId,
         google_id: googleId,
-        picture,
+        picture:picture.data.url,
       });
 
-      let { _id, facebook_id, google_id, user_email, user_name } =
-        await User.findOne({ user_email: userEmail });
+      let { _id, facebook_id, google_id, user_email, user_name } = createdUser;
 
       const token = jwt.sign(
         {
@@ -84,6 +82,7 @@ router.post("/", async (req, res, next) => {
           userName: user_name,
           facebook_id,
           google_id,
+          picture:picture.data.url
         },
         secret
       );
@@ -93,9 +92,8 @@ router.post("/", async (req, res, next) => {
         {
           token,
           loginCount: 1,
-          userEmail: user_email,
           userName: user_name,
-          picture,
+          picture:picture.data.url,
         },
         200
       );
