@@ -34,7 +34,7 @@ router.post("/", async (req, res, next) => {
             google_id: googleId,
             login_count: login_count + 1,
             user_name: userName,
-            picture:picture.data.url,
+            picture: picture.data.is_silhouette ? picture.data.url : "",
           },
         }
       );
@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
           userName: user_name,
           facebook_id,
           google_id,
-          picture:picture.data.url,
+          picture: picture.data.is_silhouette ? picture.data.url : "",
         },
         secret
       );
@@ -56,7 +56,7 @@ router.post("/", async (req, res, next) => {
           token,
           loginCount: login_count + 1,
           userName: user_name,
-          picture:picture.data.url,
+          picture: picture.data.is_silhouette ? picture.data.url : "",
         },
         200
       );
@@ -70,7 +70,7 @@ router.post("/", async (req, res, next) => {
         login_count: 1,
         facebook_id: facebookId,
         google_id: googleId,
-        picture:picture.data.url,
+        picture: picture.data.is_silhouette ? picture.data.url : "",
       });
 
       let { _id, facebook_id, google_id, user_email, user_name } = createdUser;
@@ -82,7 +82,7 @@ router.post("/", async (req, res, next) => {
           userName: user_name,
           facebook_id,
           google_id,
-          picture:picture.data.url
+          picture: picture.data.is_silhouette ? picture.data.url : "",
         },
         secret
       );
@@ -93,7 +93,7 @@ router.post("/", async (req, res, next) => {
           token,
           loginCount: 1,
           userName: user_name,
-          picture:picture.data.url,
+          picture: picture.data.is_silhouette ? picture.data.url : "",
         },
         200
       );
