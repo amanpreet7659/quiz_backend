@@ -11,7 +11,9 @@ const {
 // register user
 
 router.post("/", async (req, res, next) => {
-  const { userEmail, facebookId, googleId, userName, picture } = req.body;
+  const { userEmail, facebookId, googleId, userName } = req.body;
+  const userPicture = req.body.picture;
+  // res.status(200).json(req.body);
   try {
     const cloudUser = await User.findOne({ user_email: userEmail });
 
@@ -23,6 +25,7 @@ router.post("/", async (req, res, next) => {
         user_name,
         facebook_id,
         google_id,
+        picture
       } = cloudUser;
 
       await User.updateOne(
@@ -34,7 +37,7 @@ router.post("/", async (req, res, next) => {
             google_id: googleId,
             login_count: login_count + 1,
             user_name: userName,
-            picture: !picture.data.is_silhouette ? picture.data.url : "",
+            picture: !userPicture.data.is_silhouette ? userPicture.data.url : "",
           },
         }
       );
@@ -56,7 +59,7 @@ router.post("/", async (req, res, next) => {
           token,
           loginCount: login_count + 1,
           userName: user_name,
-          picture: !picture.data.is_silhouette ? picture.data.url : "",
+          picture: !userPicture.data.is_silhouette ? userPicture.data.url : "",
         },
         200
       );
@@ -70,7 +73,7 @@ router.post("/", async (req, res, next) => {
         login_count: 1,
         facebook_id: facebookId,
         google_id: googleId,
-        picture: !picture.data.is_silhouette ? picture.data.url : "",
+        picture: !userPicture.data.is_silhouette ? userPicture.data.url : "",
       });
 
       let { _id, facebook_id, google_id, user_email, user_name, picture } =
