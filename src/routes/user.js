@@ -14,7 +14,6 @@ router.post("/", async (req, res, next) => {
   const { userEmail, facebookId, googleId, userName } = req.body;
   const userPicture = req.body.picture;
   try {
-    // res.status(200).json(!userPicture.data.is_silhouette ? userPicture.data.url : "");
     const cloudUser = await User.findOne({ user_email: userEmail });
 
     if (cloudUser) {
@@ -33,8 +32,8 @@ router.post("/", async (req, res, next) => {
         {
           $set: {
             _id,
-            facebook_id: facebookId,
-            google_id: googleId,
+            facebook_id: facebook_id,
+            google_id: google_id,
             login_count: login_count + 1,
             user_name: userName,
             picture: !userPicture.data.is_silhouette
@@ -133,4 +132,15 @@ router.delete("/delete-all", async (req, res, next) => {
   }
 });
 
+// delete single user
+
+router.delete("/delete-s/:_id", async (req, res, next) => {
+  const { _id } = req.params;
+  try {
+    await User.remove({ _id });
+    success(res, { message: "Deleted successfully" }, 200);
+  } catch (err) {
+    error(res, err, 404);
+  }
+});
 module.exports = router;
