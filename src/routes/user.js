@@ -46,8 +46,8 @@ router.post("/", async (req, res, next) => {
       const token = jwt.sign(
         {
           id: _id,
-          userEmail: user_email,
-          userName: user_name,
+          userEmail,
+          userName,
           facebook_id,
           google_id,
           picture: !userPicture.data.is_silhouette ? userPicture.data.url : "",
@@ -140,7 +140,7 @@ router.delete("/delete-s/:_id", async (req, res, next) => {
     await User.remove({ _id });
     success(res, { message: "Deleted successfully" }, 200);
   } catch (err) {
-    error(res, err, 404);
+    error(res, { message: "User not found", ...err }, 404);
   }
 });
 module.exports = router;
